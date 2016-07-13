@@ -51,19 +51,17 @@ def make_text(chains):
     random_key = choice(chains.keys())
     # print '*'*10, type(random_key)
     # create empty string
-    random_text = random_key[0]
-    # run a while loop until new key cannot be found in Chains dictionary
+    random_text = random_key[0] + " " + random_key[1]
+    # # run a while loop until new key cannot be found in Chains dictionary
     while random_key in chains:
     # get the random value
-        random_value = choice(chains[random_key])
-    # concacnating key and value into text
-        random_text = random_text + " " + random_key[1] + " " + random_value
-    # rebind key to second word in previous key + value
-        random_key = (random_key[1], random_value)
+        random_value = choice(chains[random_key]) #chains at random_key returns the value at that key, which is a list    # concacnating key and value into text
+        random_text = random_text + " " + random_value
+    # # rebind key to second word in previous key + value
+        random_key = (random_key[1], random_value)   
+        # print random_text
 
-         
-    print random_text
-
+    return random_text
 
 input_path = "green-eggs.txt"
 
@@ -75,5 +73,5 @@ chains = make_chains(input_text)
 
 #Produce random_text
 random_text = make_text(chains)
-
+print ("*")*80
 print random_text
