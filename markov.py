@@ -45,14 +45,24 @@ def make_chains(contents):
 def make_text(chains):
     """Takes dictionary of markov chains; returns random text."""
 
-    text = ""
-    import random
-    rand_key = random.choice(chains.keys())  # pick up random key from the dictionary
-    new_value = chains[rand_key]     # get the value associated with the new key
 
-    # Create a new key with key1a and value1
 
-    return text
+# get a random key
+    random_key = choice(chains.keys())
+    # print '*'*10, type(random_key)
+    # create empty string
+    random_text = random_key[0]
+    # run a while loop until new key cannot be found in Chains dictionary
+    while random_key in chains:
+    # get the random value
+        random_value = choice(chains[random_key])
+    # concacnating key and value into text
+        random_text = random_text + " " + random_key[1] + " " + random_value
+    # rebind key to second word in previous key + value
+        random_key = (random_key[1], random_value)
+
+         
+    print random_text
 
 
 input_path = "green-eggs.txt"
@@ -63,7 +73,7 @@ input_text = open_and_read_file(input_path)
 # Get a Markov chain
 chains = make_chains(input_text)
 
-# Produce random text
+#Produce random_text
 random_text = make_text(chains)
 
 print random_text
