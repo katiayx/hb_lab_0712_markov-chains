@@ -1,3 +1,5 @@
+
+
 from random import choice
 
 
@@ -58,6 +60,10 @@ def make_text(chains):
         random_value = choice(chains[random_key]) #chains at random_key returns the value at that key, which is a list    # concacnating key and value into text
         random_text = random_text + " " + random_value
     # # rebind key to second word in previous key + value
+        if int(len(random_text)) < 140:
+            print random_text
+        else:
+            break
         random_key = (random_key[1], random_value)   
         # print random_text
 
@@ -75,3 +81,39 @@ chains = make_chains(input_text)
 random_text = make_text(chains)
 print ("*")*80
 print random_text
+
+def tweet(chains):
+    # Use Python os.environ to get at environmental variables
+    # Note: you must run `source secrets.sh` before running this file
+    # to make sure these environmental variables are set.
+    api = twitter.Api(
+        consumer_key=os.environ['TWITTER_CONSUMER_KEY'],
+        consumer_secret=os.environ['TWITTER_CONSUMER_SECRET'],
+        access_token_key=os.environ['TWITTER_ACCESS_TOKEN_KEY'],
+        access_token_secret=os.environ['TWITTER_ACCESS_TOKEN_SECRET'])
+    print api.VerifyCredentials()
+
+    status = api.PostUpdate(random_text)
+    print status.text
+
+
+# import sys 
+
+# string_text = sys.argv[1]
+# for words in open(string_text):
+#     print words
+
+#To-Do list:
+#1. Make a dictionary out of words
+#2. ask input for how many words in the key: ask for n
+#3. Find the lenth of n, and index it using range
+#4: Set up the random_key variable = (range(len(n)[0] + .... +range(len(n)[n-1])
+#5: Set up initial text = random_key[0] + .. + random_key[n-1]
+#6: while loop - look for key in dictionary
+#7:     if key in dictionary, randomly select a value = random_value
+#8:     update text = initial text + random_value
+#9:     create new random_key = random_key[n-1], random value
+
+#goal1: function to take an argument of n, where n is equal to the number of words in the key
+#goal2: random key should start with a capped word
+#goal3: random text should end on a punctation 
